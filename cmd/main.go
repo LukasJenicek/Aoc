@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/LukasJenicek/aoc/days/day01"
+	"github.com/LukasJenicek/aoc/libs/runner"
 )
 
 var (
@@ -26,14 +27,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	var result string
-	switch *day {
-	case 1:
-		result, err = day01.CalculateFirstAssignment(input)
-	default:
-		log.Fatalf("day %d not implemented", *day)
-	}
+	r := runner.NewRunner(map[int]runner.AssignmentRunnable{
+		1: &day01.FirstDay{},
+	})
 
+	result, err := r.Run(*day, *part, input)
 	if err != nil {
 		log.Fatal(err)
 	}
