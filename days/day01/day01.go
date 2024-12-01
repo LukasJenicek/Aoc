@@ -25,13 +25,8 @@ func CalculateFirstAssignment() (string, error) {
 		secondCol[i] = rows[1]
 	}
 
-	sort.Slice(firstCol, func(i, j int) bool {
-		return firstCol[i] < firstCol[j]
-	})
-
-	sort.Slice(secondCol, func(i, j int) bool {
-		return secondCol[i] < secondCol[j]
-	})
+	sort.Ints(firstCol)
+	sort.Ints(secondCol)
 
 	distance := 0
 	for i, smallestNumber := range firstCol {
