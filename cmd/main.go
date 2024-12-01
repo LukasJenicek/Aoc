@@ -50,7 +50,7 @@ func loadInput(day int, part int, example bool) (string, error) {
 
 	var filename string
 	if example {
-		filename = fmt.Sprintf("%s/days/day%s/example.txt", workingDir, dayFormatted)
+		filename = fmt.Sprintf("%s/days/day%s/example%s.txt", workingDir, dayFormatted, partFormatted)
 	} else {
 		filename = fmt.Sprintf("%s/days/day%s/input%s.txt", workingDir, dayFormatted, partFormatted)
 	}
