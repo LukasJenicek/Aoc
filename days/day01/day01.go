@@ -52,8 +52,21 @@ func (*FirstDay) RunSecondPart(input string) (string, error) {
 	sort.Ints(secondCol)
 
 	distance := 0
-	for i, smallestNumber := range firstCol {
-		distance += int(math.Abs(float64(smallestNumber - secondCol[i])))
+	score := 0
+	for _, firstColNumber := range firstCol {
+		score = 0
+
+		for _, secondColNumber := range secondCol {
+			if secondColNumber > firstColNumber {
+				break
+			}
+
+			if firstColNumber == secondColNumber {
+				score++
+			}
+		}
+
+		distance += firstColNumber * score
 	}
 
 	return fmt.Sprintf("%v", distance), nil
