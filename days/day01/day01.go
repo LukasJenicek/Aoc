@@ -9,11 +9,8 @@ import (
 	"github.com/LukasJenicek/aoc/libs/helpers"
 )
 
-//go:embed input01.txt
-var input01 string
-
-func CalculateFirstAssignment() (string, error) {
-	numbers, err := helpers.LoadNumbers(input01)
+func CalculateFirstAssignment(input string) (string, error) {
+	numbers, err := helpers.LoadNumbers(input)
 	if err != nil {
 		return "", fmt.Errorf("load numbers: %w", err)
 	}
