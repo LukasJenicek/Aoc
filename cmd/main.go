@@ -24,7 +24,7 @@ func main() {
 
 	switch *day {
 	case 1:
-		result, err = day01.RunFirst()
+		result, err = day01.CalculateFirstAssignment()
 	default:
 		log.Fatalf("day %d not implemented", *day)
 	}
