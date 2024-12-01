@@ -3,21 +3,37 @@ package helpers
 import (
 	"fmt"
 	"strconv"
+	"strings"
 	"unicode"
 )
 
-func LoadNumbers(line string) ([]int, error) {
-	numbers := make([]int, 0)
+func LoadNumbers(input string) ([][]int, error) {
+	lines := strings.Split(input, "\n")
+	linesCount := len(lines)
+	numbers := make([][]int, linesCount)
+
 	number := ""
+	for i, line := range lines {
+		for _, char := range line {
+			if number == "" && unicode.IsSpace(char) {
+				continue
+			}
 
-	for _, char := range line {
-		if number == "" && unicode.IsSpace(char) {
-			continue
-		}
+			if unicode.IsDigit(char) {
+				number += string(char)
+				continue
+			}
 
-		if unicode.IsDigit(char) {
-			number += string(char)
-			continue
+			if number != "" {
+				n, err := strconv.ParseInt(number, 10, 64)
+				if err != nil {
+					return nil, fmt.Errorf("parsing number: %s", err)
+				}
+
+				numbers[i] = append(numbers[i], int(n))
+				number = ""
+				continue
+			}
 		}
 
 		if number != "" {
@@ -26,19 +42,9 @@ func LoadNumbers(line string) ([]int, error) {
 				return nil, fmt.Errorf("parsing number: %s", err)
 			}
 
-			numbers = append(numbers, int(n))
+			numbers[i] = append(numbers[i], int(n))
 			number = ""
-			continue
 		}
-	}
-
-	if number != "" {
-		n, err := strconv.ParseInt(number, 10, 64)
-		if err != nil {
-			return nil, fmt.Errorf("parsing number: %s", err)
-		}
-
-		numbers = append(numbers, int(n))
 	}
 
 	return numbers, nil
