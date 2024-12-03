@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"github.com/LukasJenicek/aoc/days/day01"
 	"github.com/LukasJenicek/aoc/days/day02"
@@ -34,6 +35,11 @@ func main() {
 		2: &day02.SecondDay{},
 		3: &day03.ThirdDay{},
 	})
+
+	start := time.Now()
+	defer func() {
+		fmt.Println(time.Since(start))
+	}()
 
 	result, err := r.Run(*day, *part, input)
 	if err != nil {
