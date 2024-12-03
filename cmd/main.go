@@ -8,6 +8,7 @@ import (
 
 	"github.com/LukasJenicek/aoc/days/day01"
 	"github.com/LukasJenicek/aoc/days/day02"
+	"github.com/LukasJenicek/aoc/days/day03"
 	"github.com/LukasJenicek/aoc/libs/runner"
 )
 
@@ -31,6 +32,7 @@ func main() {
 	r := runner.NewRunner(map[int]runner.AssignmentRunnable{
 		1: &day01.FirstDay{},
 		2: &day02.SecondDay{},
+		3: &day03.ThirdDay{},
 	})
 
 	result, err := r.Run(*day, *part, input)

@@ -60,9 +60,9 @@ func AbsoluteDiff(x, y int) int {
 
 func RemoveAtIndex(slice []int, index int) []int {
 	// no bound check just dont call a oob index
-	new := make([]int, 0, len(slice)-1)
-	new = append(new, slice[:index]...)
-	new = append(new, slice[index+1:]...)
+	newSlice := make([]int, 0, len(slice)-1)
+	newSlice = append(newSlice, slice[:index]...)
+	newSlice = append(newSlice, slice[index+1:]...)
 
-	return new
+	return newSlice
 }
