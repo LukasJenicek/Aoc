@@ -49,3 +49,20 @@ func LoadNumbers(input string) ([][]int, error) {
 
 	return numbers, nil
 }
+
+func AbsoluteDiff(x, y int) int {
+	if x < y {
+		return y - x
+	}
+
+	return x - y
+}
+
+func RemoveAtIndex(slice []int, index int) []int {
+	// no bound check just dont call a oob index
+	new := make([]int, 0, len(slice)-1)
+	new = append(new, slice[:index]...)
+	new = append(new, slice[index+1:]...)
+
+	return new
+}
