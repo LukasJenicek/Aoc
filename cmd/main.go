@@ -40,7 +40,7 @@ func main() {
 
 	start := time.Now()
 	defer func() {
-		fmt.Println(time.Since(start))
+		fmt.Println("Duration: ", time.Since(start))
 	}()
 
 	result, err := r.Run(*day, *part, input)
@@ -48,7 +48,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(result)
+	fmt.Println("Result", result)
 }
 
 func loadInput(day int, part int, example bool) (string, error) {
