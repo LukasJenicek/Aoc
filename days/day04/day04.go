@@ -5,21 +5,17 @@ import (
 	"strings"
 )
 
-var directions = [][]int{
-	{0, 1}, // right
-	//{0, -1}, // left
-	{1, 0}, // down
-	//{-1, 0}, // up
-	{1, 1}, // diagonal down-right
-	//{-1, -1}, // diagonal up-left
-	{1, -1}, // diagonal down-left
-	//{-1, 1},  // diagonal up-right
-}
-
 type FourthDay struct{}
 
 func (*FourthDay) RunFirstPart(input string) (string, error) {
 	grid := buildGrid(input)
+
+	directions := [][]int{
+		{0, 1},  // right
+		{1, 0},  // down
+		{1, 1},  // diagonal down-right
+		{1, -1}, // diagonal down-left
+	}
 
 	occurrences := 0
 	word := "XMAS"
@@ -46,7 +42,45 @@ func (*FourthDay) RunFirstPart(input string) (string, error) {
 }
 
 func (*FourthDay) RunSecondPart(input string) (string, error) {
-	return "", nil
+	grid := buildGrid(input)
+
+	directions := [][]int{
+		{1, 1}, // diagonal down-right
+	}
+
+	occurrences := 0
+	word := "MAS"
+	reversedWord := "SAM"
+
+	rowsCount := len(grid)
+	colsCount := len(grid[0])
+
+	for i, row := range grid {
+		for j, _ := range row {
+			for _, dc := range directions {
+				if searchWord(grid, rowsCount, colsCount, i, j, dc[0], dc[1], word) {
+					if j+2 < colsCount && i+2 < rowsCount {
+						if searchWord(grid, rowsCount, colsCount, i, j+2, 1, -1, word) ||
+							searchWord(grid, rowsCount, colsCount, i, j+2, 1, -1, reversedWord) {
+							occurrences++
+							continue
+						}
+					}
+				}
+
+				if searchWord(grid, rowsCount, colsCount, i, j, dc[0], dc[1], reversedWord) {
+					if j+2 < colsCount && i+2 < rowsCount {
+						if searchWord(grid, rowsCount, colsCount, i, j+2, 1, -1, reversedWord) ||
+							searchWord(grid, rowsCount, colsCount, i, j+2, 1, -1, word) {
+							occurrences++
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return fmt.Sprintf("%v", occurrences), nil
 }
 
 func searchWord(grid [][]string, rowsCount, colsCount, curRow, curCol, dirRow, dirCol int, word string) bool {
