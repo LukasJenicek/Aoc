@@ -11,6 +11,7 @@ import (
 	"github.com/LukasJenicek/aoc/days/day02"
 	"github.com/LukasJenicek/aoc/days/day03"
 	"github.com/LukasJenicek/aoc/days/day04"
+	"github.com/LukasJenicek/aoc/days/day05"
 	"github.com/LukasJenicek/aoc/libs/runner"
 )
 
@@ -36,6 +37,7 @@ func main() {
 		2: &day02.SecondDay{},
 		3: &day03.ThirdDay{},
 		4: &day04.FourthDay{},
+		5: &day05.FifthDay{},
 	})
 
 	start := time.Now()
