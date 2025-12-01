@@ -28,17 +28,19 @@ func main() {
 		log.Fatal(err)
 	}
 
-	input, err := loadInput(*day, *part, *example)
+	input, err := loadInput(*year, *day, *part, *example)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	r := runner.NewRunner(map[int]runner.AssignmentRunnable{
-		1: &day202401.FirstDay{},
-		2: &day202402.SecondDay{},
-		3: &day202403.ThirdDay{},
-		4: &day202404.FourthDay{},
-		5: &day202405.FifthDay{},
+	r := runner.NewRunner(map[int]map[int]runner.AssignmentRunnable{
+		2024: {
+			1: &day202401.FirstDay{},
+			2: &day202402.SecondDay{},
+			3: &day202403.ThirdDay{},
+			4: &day202404.FourthDay{},
+			5: &day202405.FifthDay{},
+		},
 	})
 
 	start := time.Now()
@@ -46,7 +48,7 @@ func main() {
 		fmt.Println("Duration: ", time.Since(start))
 	}()
 
-	result, err := r.Run(*day, *part, input)
+	result, err := r.Run(*year, *day, *part, input)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -54,7 +56,7 @@ func main() {
 	fmt.Println("Result", result)
 }
 
-func loadInput(day int, part int, example bool) (string, error) {
+func loadInput(year int, day int, part int, example bool) (string, error) {
 	dayFormatted := fmt.Sprintf("%02d", day)
 	partFormatted := fmt.Sprintf("%02d", part)
 
@@ -65,9 +67,9 @@ func loadInput(day int, part int, example bool) (string, error) {
 
 	var filename string
 	if example {
-		filename = fmt.Sprintf("%s/days/day%s/example%s.txt", workingDir, dayFormatted, partFormatted)
+		filename = fmt.Sprintf("%s/years/%d/days/day%s/example%s.txt", workingDir, year, dayFormatted, partFormatted)
 	} else {
-		filename = fmt.Sprintf("%s/days/day%s/input%s.txt", workingDir, dayFormatted, partFormatted)
+		filename = fmt.Sprintf("%s/years/%d/days/day%s/input%s.txt", workingDir, year, dayFormatted, partFormatted)
 	}
 
 	contents, err := os.ReadFile(filename)

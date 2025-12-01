@@ -10,15 +10,15 @@ type AssignmentRunnable interface {
 }
 
 type Runner struct {
-	assignments map[int]AssignmentRunnable
+	assignments map[int]map[int]AssignmentRunnable
 }
 
-func NewRunner(assignments map[int]AssignmentRunnable) *Runner {
+func NewRunner(assignments map[int]map[int]AssignmentRunnable) *Runner {
 	return &Runner{assignments: assignments}
 }
 
-func (r *Runner) Run(day int, part int, input string) (string, error) {
-	assignment, ok := r.assignments[day]
+func (r *Runner) Run(year int, day int, part int, input string) (string, error) {
+	assignment, ok := r.assignments[year][day]
 	if !ok {
 		return "", fmt.Errorf("assignment not found for day %d", day)
 	}
